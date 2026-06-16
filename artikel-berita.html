@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Judul Artikel — BeritaKini</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4f0;
+      --surface: #ffffff;
+      --text-primary: #1a1a18;
+      --text-secondary: #4a4a46;
+      --text-muted: #8a8a84;
+      --border: #dddbd4;
+      --accent: #c0392b;
+      --accent-light: #fdf0ef;
+      --header-bg: #111110;
+      --header-text: #f5f4f0;
+      --tag-bg: #eae8e2;
+      --tag-text: #444440;
+      --blockquote-bg: #fdf0ef;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0e0e0d;
+      --surface: #1a1a18;
+      --text-primary: #f0ede6;
+      --text-secondary: #b0ada6;
+      --text-muted: #6a6a64;
+      --border: #2c2c28;
+      --accent: #e85444;
+      --accent-light: #2a1210;
+      --header-bg: #0a0a09;
+      --header-text: #f0ede6;
+      --tag-bg: #252522;
+      --tag-text: #c0bdb6;
+      --blockquote-bg: #2a1210;
+    }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--header-bg);
+      border-bottom: 3px solid var(--accent);
+    }
+
+    .header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .site-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--header-text);
+      letter-spacing: -0.5px;
+    }
+
+    .site-name span { color: var(--accent); }
+
+    .dark-toggle {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      color: var(--header-text);
+      padding: 5px 14px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      transition: border-color 0.15s;
+    }
+    .dark-toggle:hover { border-color: rgba(255,255,255,0.5); }
+
+    /* ARTICLE */
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    .article-category {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+
+    h1.article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .article-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      line-height: 1.55;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.75rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .author-dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .meta-author { font-weight: 600; color: var(--text-primary); }
+    .meta-sep { color: var(--border); }
+
+    .article-hero {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .article-hero img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .hero-caption {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+      font-style: italic;
+    }
+
+    .article-body p {
+      margin-bottom: 1.3rem;
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--text-primary);
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-body blockquote {
+      border-left: 4px solid var(--accent);
+      background: var(--blockquote-bg);
+      padding: 1rem 1.25rem;
+      margin: 1.75rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .article-body blockquote p {
+      font-style: italic;
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* TAGS */
+    .tags-section {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tags-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .tag:hover { background: var(--accent-light); color: var(--accent); }
+
+    /* SHARE */
+    .share-bar {
+      margin-top: 1.75rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .share-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .share-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .share-btn {
+      padding: 7px 16px;
+      border-radius: 5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .share-btn:hover { opacity: 0.85; }
+    .share-btn.fb { background: #1877f2; color: #fff; }
+    .share-btn.tw { background: #1da1f2; color: #fff; }
+    .share-btn.wa { background: #25d366; color: #fff; }
+    .share-btn.cp { background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border); }
+
+    /* FOOTER */
+    footer {
+      background: var(--header-bg);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      padding: 1.75rem 1.5rem;
+      border-top: 3px solid var(--accent);
+    }
+    footer span { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="site-name">Berita<span>Kini</span></div>
+    <button class="dark-toggle" id="toggleDark">🌙 Mode Gelap</button>
+  </div>
+</header>
+
+<main>
+  <span class="article-category">Kecelakaan Kereta</span>
+
+  <h1 class="article-title">
+    Ambisi Pembangunan dan Teknologi Tanpa Keselamatan, Indonesia Siap?
+  </h1>
+
+  <p class="article-subtitle">
+    Kemajuan pembangunan dan teknologi telah membawa perubahan besar dalam kehidupan masyarakat. Transportasi modern seperti kereta cepat dianggap sebagai simbol kemajuan karena mampu mempercepat mobilitas, mengurangi kemacetan, dan mendorong pertumbuhan ekonomi. Namun, dibalik manfaat tersebut, muncul pertanyaan besar: apakah ambisi pembangunan dan teknologi kita sudah diimbangi dengan kesiapan sistem keselamatan?
+  </p>
+
+  <div class="article-meta">
+    <div class="author-dot">ANZ</div>
+    <div>
+      <div class="meta-author">Arinda Nur Azizah</div>
+      <div>K7725033</div>
+    </div>
+    <span class="meta-sep">|</span>
+    <span>April 2026</span>
+    <span class="meta-sep">|</span>
+    <span>15 menit baca</span>
+  </div>
+
+  <div class="article-hero">
+    <img src="Kecelakaan.jpeg" alt="Kecelakaan">
+  </div>
+  <p class="hero-caption">Ilustrasi Kemajuan Pembangunan dan Teknologi tanpa keselamatan yang memadai</p>
+
+  <div class="article-body">
+
+    <p><strong>BEKASI, BeritaKini</strong> — Kecelakaan kereta cepat di Bekasi pada April 2026 menunjukkan bahwa ambisi pembangunan dan teknologi tidak selalu sejalan dengan kesiapan sistem keselamatan. Keselamatan publik harus menjadi prioritas utama sebelum mengejar simbol kemajuan.</p>
+
+    <p>Sejak proyek kereta cepat diluncurkan, Indonesia memasuki era baru transportasi berkecepatan tinggi. Tetapi pada 27 April 2026, sebuah tragedi terjadi di Bekasi, Jawa Barat. Kereta Argo Bromo bertabrakan dengan KRL Commuter Line di jalur aktif. Peristiwa ini menewaskan 16 orang dan melukai 84 penumpang lainnya. Evakuasi korban dilakukan di RS Polri Kramat Jati dan sejumlah rumah sakit di Bekasi. </p>
+
+    <p>Investigasi awal menunjukkan adanya gangguan komunikasi antara pusat kendali dan masinis, sehingga kereta melaju tanpa koordinasi yang jelas. Tragedi ini menjadi pengingat pahit bahwa kemajuan pembangunan dan teknologi tidak selalu diiringi kesiapan sistem keselamatan.</p>
+
+    <h2>Potensi dan Risiko</h2>
+
+    <p>Kereta cepat memang memberikan banyak manfaat, diantaranya bisa mempercepat mobilitas antar wilayah, mengurangi kemacetan di jalan raya, dan mendorong pertumbuhan ekonomi. Namun, data dari Kementerian Perhubungan menunjukkan adanya peningkatan masalah teknis dalam dua tahun terakhir.</p>
+
+    <p>Hal ini menandakan bahwa sistem pengawasan belum sepenuhnya siap menghadapi kerumitan teknologi baru. Walaupun mobilitas semakin mudah dan cepat, akan tidak efisiensi jika aspek keselamatan tidak dijaga dengan baik.</p>
+
+    <h2>Faktor Manusia dan Regulasi</h2>
+
+    <p>Investigasi juga mengungkap adanya kelalaian manusia serta gangguan komunikasi yang fatal. Hal ini menegaskan bahwa pelatihan sumber daya manusia belum sejalan dengan perkembangan teknologi. Tanpa peningkatan kompetensi dan regulasi ketat, risiko kecelakaan akan terus menghantui. Selain itu, tekanan politik dan ekonomi sering mendorong percepatan pembangunan tanpa evaluasi menyeluruh. Padahal, keselamatan publik seharusnya menjadi prioritas utama, bukan sekadar pencapaian simbol kemajuan.</p>
+
+    <p>Sebagai bentuk tuntutan atas lemahnya sistem keselamatan, seorang penumpang KA Argo Bromo menggugat PT KAI sebesar Rp100 miliar. Gugatan ini menunjukkan bahwa masyarakat tidak hanya menanggung kerugian fisik dan psikologis, tetapi juga menuntut pertanggungjawaban hukum atas kelalaian yang terjadi. Kasus ini mempertegas bahwa keselamatan publik tidak boleh dikorbankan demi ambisi pembangunan dan teknologi.</p>
+
+    <h2>Dampak Sosial-Ekonomi</h2>
+
+    <p>Kecelakaan ini tidak hanya menimbulkan korban jiwa, tetapi juga berdampak pada kepercayaan publik terhadap proyek infrastruktur besar. Banyak masyarakat mulai mempertanyakan apakah investasi triliunan rupiah benar-benar sepadan dengan risiko yang ditanggung. Selain itu, biaya kompensasi korban, gugatan hukum, serta kerugian operasional menjadi beban tambahan bagi negara dan perusahaan. Jika keselamatan tidak diperkuat, proyek infrastruktur justru bisa menjadi sumber kerugian jangka panjang.</p>
+
+    <p>Untuk mencegah tragedi serupa, pemerintah perlu memperkuat regulasi keselamatan transportasi, meningkatkan pelatihan masinis dan petugas lapangan, serta memastikan sistem komunikasi dan pengendalian kereta berfungsi optimal. Audit keselamatan harus dilakukan secara berkala oleh lembaga independen, bukan hanya internal perusahaan.</p> 
+    
+    <p>Selain itu, transparansi informasi kepada publik penting agar masyarakat merasa dilibatkan dan percaya bahwa keselamatan benar-benar menjadi prioritas. Disamping itu, setiap proyek infrastruktur harus melalui uji kelayakan menyeluruh yang tidak hanya menilai aspek teknis, tetapi juga kesiapan sumber daya manusia, sistem darurat, dan mekanisme tanggap bencana. Tanpa langkah komprehensif ini, pembangunan berisiko menjadi sekadar pencapaian simbolis yang mengabaikan nyawa rakyat.</p>
+
+    <p>Memang tidak bisa dipungkiri, kereta cepat memiliki manfaat besar. Negara seperti Jepang dan Korea Selatan berhasil mengoperasikan sistem serupa dengan tingkat keselamatan tinggi. Namun, keberhasilan mereka dicapai melalui regulasi ketat, audit rutin, dan budaya disiplin yang kuat. Tanpa komitmen serupa, Indonesia berisiko mengulang tragedi yang sama di masa depan.</p>
+
+    <p>Oleh karena itu, kecelakaan kereta cepat di Bekasi harus menjadi peringatan keras. Kemajuan pembangunan dan teknologi tidak boleh berjalan lebih cepat daripada kesiapan manusia dan sistemnya. Pemerintah perlu memperkuat regulasi, meningkatkan pelatihan, serta memastikan setiap inovasi diuji secara menyeluruh sebelum dioperasikan. Kemajuan sejati bukan sekadar cepat, tetapi aman dan bertanggung jawab.</p>
+
+  </div>
+  <div class="share-bar">
+    <span class="share-label">Bagikan artikel ini:</span>
+    <div class="share-btns">
+      <button class="share-btn fb" onclick="shareArticle('facebook')">Facebook</button>
+      <button class="share-btn tw" onclick="shareArticle('twitter')">Twitter / X</button>
+      <button class="share-btn wa" onclick="shareArticle('whatsapp')">WhatsApp</button>
+      <button class="share-btn cp" id="copyBtn" onclick="copyLink()">Salin tautan</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  &copy; 2026 <span>BeritaKini</span>. Semua hak dilindungi. &nbsp;|&nbsp; Redaksi &nbsp;|&nbsp; Kebijakan Privasi
+</footer>
+
+<script>
+  const html = document.documentElement;
+  const toggleBtn = document.getElementById('toggleDark');
+
+  toggleBtn.addEventListener('click', () => {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    toggleBtn.textContent = isDark ? '🌙 Mode Gelap' : '☀️ Mode Terang';
+  });
+
+  function shareArticle(platform) {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.title);
+    const links = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      twitter:  `https://twitter.com/intent/tweet?url=${url}&text=${title}`,
+      whatsapp: `https://wa.me/?text=${title}%20${url}`
+    };
+    if (links[platform]) window.open(links[platform], '_blank');
+  }
+
+  function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Tersalin ✓';
+      setTimeout(() => btn.textContent = 'Salin tautan', 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
